@@ -8,6 +8,7 @@ import java.math.RoundingMode
 fun main() {
 	var now = System.currentTimeMillis() / 1000
 	val epoch = -740534400 							// Unix epoch 1946-07-15
+	//val modulus = 24159661.344 						// this isn't right
 	val modulus = 31_558.1184 						// 100y / 10_000
 
 	var epochTime = now - epoch
