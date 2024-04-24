@@ -1,10 +1,11 @@
 // stardate.kt
 // 2024-04-21 (77768)
-// Using an epoch of 15 July 1946 00:00:00 UCT = Stardate 0000.0
+// Using an epoch of 15 July 1946 00:00:00 UTC = Stardate 0000.0
 
 import kotlin.math.round
 import java.math.RoundingMode
 import java.time.Instant
+import java.time.format.DateTimeParseException
 
 fun main(args: Array<String>) {
 	var timestamp: Instant
@@ -12,7 +13,13 @@ fun main(args: Array<String>) {
 	val modulus = 31_558.1184
 
 	if(args.size == 0) timestamp = Instant.now()
-	else timestamp = Instant.parse(args.joinToString(" "))
+	else
+		try {
+			timestamp = Instant.parse(args.joinToString(" "))
+		} catch (e: DateTimeParseException) {
+			println(e.message)
+			return
+		}
 
 	print(getStardateFromInstant(timestamp))
 }
