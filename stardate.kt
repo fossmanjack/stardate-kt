@@ -4,7 +4,36 @@
 
 import kotlin.math.round
 import java.math.RoundingMode
+import java.time.Instant
 
+fun main(args: Array<String>) {
+	var timestamp: Instant
+	val epoch = -740534400 						// Unix epoch 1946-07-15
+	val modulus = 31_558.1184
+
+	if(args.size == 0) timestamp = Instant.now()
+	else timestamp = Instant.parse(args.joinToString(" "))
+
+	print(getStardateFromInstant(timestamp))
+}
+
+fun getStardateFromInstant(timestamp: Instant): Double {
+	var secs: Double = (timestamp.toEpochMilli() / 1000).toDouble()
+	val epoch = -740534400
+	val modulus = 31_558.1184
+
+	var stardateEpochSecond: Double = secs - epoch
+	stardateEpochSecond /= modulus
+
+	return stardateEpochSecond.toBigDecimal().setScale(4, RoundingMode.HALF_UP).toDouble()
+}
+
+fun getInstantFromStardate(stardate: Double): Instant {
+
+	return Instant.now()
+}
+
+/*
 fun main() {
 	var now = System.currentTimeMillis() / 1000
 	val epoch = -740534400 							// Unix epoch 1946-07-15
@@ -19,6 +48,7 @@ fun main() {
 
 
 }
+*/
 
 /* NOTES
 
