@@ -41,14 +41,30 @@ fun main(args: Array<String>) {
 	var timestamp: Instant
 
 	if(args.size == 0) timestamp = Instant.now()
-	else
-		try {
-			timestamp = Instant.parse(args.joinToString(" "))
-		} catch (e: DateTimeParseException) {
-			println(e.message)
-			return
+	else {
+		val arg = args.joinToString(" ")
+		if(Regex(pattern = "[0-9]{5}.[0-9]+").matches(arg)) {
+			throw Exception("Stardate-to-date not yet implemented")
 		}
+		else {
+			try {
+				timestamp = Instant.parse(args.joinToString(" "))
+			} catch (e: DateTimeParseException) {
+				println(e.message)
+				return
+			}
+		}
+	}
 
 	print(getStardateFromInstant(timestamp))
 }
 
+
+/* NOTES
+
+So what I'm going to do as I learn more is implement a Stardate class that
+extends one of the existing Date objects, then create the Stardate based on
+input, then I can just use getStardate() or toString() to output the actual
+stardate or current date
+
+*/
